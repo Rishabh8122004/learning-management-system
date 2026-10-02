@@ -4,7 +4,6 @@ import { API_BASE_URL } from "../../config/api";
 import { useAuth } from "../../context/useAuth";
 import "../css_files/LearningPaths.css";
 
-const TRACKING_TYPES = ["milestones", "habit", "target"];
 const WEEKDAYS = [
   ["Sun", 0],
   ["Mon", 1],
@@ -842,11 +841,8 @@ function LearningPaths() {
     }
 
     if (token) {
-      loadGoals();
-    } else {
-      setGoals([]);
-      setIsLoading(false);
-    }
+  loadGoals();
+}
 
     return () => {
       isCurrent = false;

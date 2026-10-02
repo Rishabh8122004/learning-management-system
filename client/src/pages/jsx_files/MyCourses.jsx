@@ -65,11 +65,8 @@ function MyCourses() {
     }
 
     if (token) {
-      loadEnrollments();
-    } else {
-      setEnrollments([]);
-      setIsLoading(false);
-    }
+  loadEnrollments();
+}
 
     return () => {
       isCurrent = false;
