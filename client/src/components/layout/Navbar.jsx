@@ -1,13 +1,22 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
+import { useAuth } from "../../context/useAuth";
 import ThemeToggle from "./ThemeToggle";
 
 function Navbar({ theme, onToggleTheme }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   function closeMenu() {
     setIsMenuOpen(false);
+  }
+
+  function handleLogout() {
+    logout();
+    closeMenu();
+    navigate("/login");
   }
 
   return (
@@ -18,10 +27,25 @@ function Navbar({ theme, onToggleTheme }) {
         </Link>
 
         <div className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/courses">Courses</Link>
-          <Link to="/my-courses">My Courses</Link>
-          <Link to="/learning-paths">Learning Paths</Link>
+          <Link to="/" onClick={closeMenu}>
+            Home
+          </Link>
+
+          <Link to="/courses" onClick={closeMenu}>
+            Courses
+          </Link>
+
+          {user && (
+            <>
+              <Link to="/my-courses" onClick={closeMenu}>
+                My Courses
+              </Link>
+
+              <Link to="/learning-paths" onClick={closeMenu}>
+                Learning Paths
+              </Link>
+            </>
+          )}
         </div>
 
         <div className="nav-actions">
@@ -34,9 +58,31 @@ function Navbar({ theme, onToggleTheme }) {
             🔔
           </button>
 
-          <Link to="/profile" className="profile-link">
-            Profile
-          </Link>
+          {user ? (
+            <>
+              <Link
+                to="/profile"
+                className="profile-link"
+                onClick={closeMenu}
+              >
+                Profile
+              </Link>
+
+              <button type="button" onClick={handleLogout}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" onClick={closeMenu}>
+                Login
+              </Link>
+
+              <Link to="/register" onClick={closeMenu}>
+                Register
+              </Link>
+            </>
+          )}
 
           <button
             type="button"
@@ -59,17 +105,39 @@ function Navbar({ theme, onToggleTheme }) {
               Courses
             </Link>
 
-            <Link to="/my-courses" onClick={closeMenu}>
-              My Courses
-            </Link>
+            {user && (
+              <>
+                <Link to="/my-courses" onClick={closeMenu}>
+                  My Courses
+                </Link>
 
-            <Link to="/learning-paths" onClick={closeMenu}>
-              Learning Paths
-            </Link>
+                <Link to="/learning-paths" onClick={closeMenu}>
+                  Learning Paths
+                </Link>
+              </>
+            )}
 
-            <Link to="/profile" onClick={closeMenu}>
-              Profile
-            </Link>
+            {user ? (
+              <>
+                <Link to="/profile" onClick={closeMenu}>
+                  Profile
+                </Link>
+
+                <button type="button" onClick={handleLogout}>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" onClick={closeMenu}>
+                  Login
+                </Link>
+
+                <Link to="/register" onClick={closeMenu}>
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         )}
       </nav>
