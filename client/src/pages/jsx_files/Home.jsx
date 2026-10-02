@@ -1,89 +1,94 @@
 import { Link } from "react-router-dom";
-
 import "../css_files/Home.css";
 
 function Home() {
   return (
     <main className="home-page">
-      <section className="home-hero">
+      <section className="home-hero" aria-labelledby="home-heading">
         <p className="home-eyebrow">LEARNING, WITH DIRECTION</p>
 
-        <h1>
+        <h1 id="home-heading">
           Learn what matters.
           <br />
-          <span>Track your progress.</span>
+          <span>Track where you're going.</span>
         </h1>
 
         <p className="home-hero-text">
-          Trackly helps you turn scattered learning into a clear path —
-          whether you learn from YouTube, books, college, documentation,
-          courses, or your own projects.
+          Trackly helps you turn the things you want to learn into organized
+          learning paths, so you know what you're working on, where you are,
+          and what comes next.
         </p>
 
-        <div className="home-hero-actions">
-          <Link to="/courses" className="primary-button">
-            Start Learning
-          </Link>
-
-          <Link to="/learning-paths" className="secondary-button">
-            Explore Learning Paths
-          </Link>
-        </div>
+        <Link to="/learning-paths" className="primary-button">
+          Start organizing
+        </Link>
       </section>
 
-      <section className="home-process" aria-labelledby="process-heading">
-        <div className="section-heading">
-          <p className="home-eyebrow">HOW TRACKLY WORKS</p>
+      <section
+        className="home-learning-flow"
+        aria-labelledby="learning-flow-heading"
+      >
+        <div className="flow-intro">
+          <p className="home-eyebrow">THE TRACKLY IDEA</p>
 
-          <h2 id="process-heading">
-            From intention to progress.
+          <h2 id="learning-flow-heading">
+            Turn learning into something you can follow.
           </h2>
         </div>
 
-        <div className="process-grid">
-          <article className="process-card">
-            <span className="process-number">01</span>
-            <h3>Choose what to learn</h3>
-            <p>
-              Define the skills, subjects, or knowledge you actually want
-              to build.
-            </p>
-          </article>
+        <div className="learning-path" aria-label="Trackly learning flow">
+          <div className="learning-path-line" aria-hidden="true">
+            <span className="learning-path-progress" />
+          </div>
 
-          <article className="process-card">
-            <span className="process-number">02</span>
-            <h3>Build your path</h3>
-            <p>
-              Organize courses, lessons, and custom learning tasks into a
-              structure that makes sense to you.
-            </p>
-          </article>
+          <div className="learning-step">
+            <span className="learning-step-marker" aria-hidden="true">
+              01
+            </span>
 
-          <article className="process-card">
-            <span className="process-number">03</span>
-            <h3>Keep moving</h3>
-            <p>
-              Complete learning tasks, track your progress, and understand
-              what you should work on next.
-            </p>
-          </article>
+            <div>
+              <h3>Goal</h3>
+              <p>What I want to learn</p>
+            </div>
+          </div>
+
+          <div className="learning-step">
+            <span className="learning-step-marker" aria-hidden="true">
+              02
+            </span>
+
+            <div>
+              <h3>Path</h3>
+              <p>How I organize the learning</p>
+            </div>
+          </div>
+
+          <div className="learning-step">
+            <span className="learning-step-marker" aria-hidden="true">
+              03
+            </span>
+
+            <div>
+              <h3>Progress</h3>
+              <p>Where I am and what comes next</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="home-sources" aria-labelledby="sources-heading">
+      <section className="home-closing" aria-labelledby="closing-heading">
         <div>
-          <p className="home-eyebrow">YOUR LEARNING, YOUR WAY</p>
+          <p className="home-eyebrow">LEARN YOUR WAY</p>
 
-          <h2 id="sources-heading">
-            Your knowledge doesn't have to come from one place.
+          <h2 id="closing-heading">
+            Your learning can come from anywhere.
           </h2>
         </div>
 
         <p>
-          Trackly is built around the reality of modern learning. A
-          YouTube playlist, a book, a college subject, an online course,
-          documentation, or a personal project can all become part of your
-          learning system.
+          YouTube, books, college, online courses, documentation, projects —
+          Trackly does not decide where you learn. It gives the learning you
+          choose a place to belong.
         </p>
       </section>
     </main>
