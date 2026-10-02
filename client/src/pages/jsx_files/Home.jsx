@@ -14,9 +14,9 @@ function Home() {
         </h1>
 
         <p className="home-hero-text">
-          Trackly helps you turn the things you want to learn into organized
-          learning paths, so you know what you're working on, where you are,
-          and what comes next.
+          Trackly helps you turn the things you want to learn into an organized
+          path, so you can see what you're working on, where you are, and what
+          comes next.
         </p>
 
         <Link to="/learning-paths" className="primary-button">
@@ -36,43 +36,43 @@ function Home() {
           </h2>
         </div>
 
-        <div className="learning-path" aria-label="Trackly learning flow">
-          <div className="learning-path-line" aria-hidden="true">
+        <div className="learning-path">
+          <div className="learning-path-track" aria-hidden="true">
             <span className="learning-path-progress" />
           </div>
 
-          <div className="learning-step">
+          <article className="learning-step">
             <span className="learning-step-marker" aria-hidden="true">
               01
             </span>
 
-            <div>
+            <div className="learning-step-content">
               <h3>Goal</h3>
               <p>What I want to learn</p>
             </div>
-          </div>
+          </article>
 
-          <div className="learning-step">
+          <article className="learning-step">
             <span className="learning-step-marker" aria-hidden="true">
               02
             </span>
 
-            <div>
+            <div className="learning-step-content">
               <h3>Path</h3>
               <p>How I organize the learning</p>
             </div>
-          </div>
+          </article>
 
-          <div className="learning-step">
+          <article className="learning-step">
             <span className="learning-step-marker" aria-hidden="true">
               03
             </span>
 
-            <div>
+            <div className="learning-step-content">
               <h3>Progress</h3>
               <p>Where I am and what comes next</p>
             </div>
-          </div>
+          </article>
         </div>
       </section>
 
@@ -80,15 +80,12 @@ function Home() {
         <div>
           <p className="home-eyebrow">LEARN YOUR WAY</p>
 
-          <h2 id="closing-heading">
-            Your learning can come from anywhere.
-          </h2>
+          <h2 id="closing-heading">Your learning can come from anywhere.</h2>
         </div>
 
         <p>
-          YouTube, books, college, online courses, documentation, projects —
-          Trackly does not decide where you learn. It gives the learning you
-          choose a place to belong.
+          Learn from YouTube, books, college, courses, documentation, projects,
+          or anywhere else. Trackly simply gives that learning structure.
         </p>
       </section>
     </main>

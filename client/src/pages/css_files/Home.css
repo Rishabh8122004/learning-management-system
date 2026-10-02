@@ -86,26 +86,30 @@
   letter-spacing: -0.045em;
 }
 
-/*
-  The path is deliberately not made from cards.
-  It is a single visual sequence representing movement
-  from learning goal to measurable progress.
-*/
-
 .learning-path {
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
   margin-top: 72px;
-  padding: 0 12px;
 }
 
-.learning-path-line {
+/*
+  Each step is centered inside its own grid column.
+
+  With three equal columns:
+    marker 01 center = 1/6 of the path width
+    marker 02 center = 1/2 of the path width
+    marker 03 center = 5/6 of the path width
+
+  The track uses those exact positions, so it remains
+  connected to the markers when the viewport changes.
+*/
+
+.learning-path-track {
   position: absolute;
   top: 14px;
-  left: 12%;
-  right: 12%;
+  left: calc(100% / 6);
+  right: calc(100% / 6);
   height: 1px;
   overflow: hidden;
   background: var(--border);
@@ -113,10 +117,12 @@
 
 .learning-path-progress {
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 45%;
+  top: 0;
+  left: 0;
+  width: 24%;
+  height: 100%;
   background: var(--primary);
-  animation: learning-progress 4s ease-in-out infinite;
+  animation: learning-progress 5s ease-in-out infinite;
 }
 
 .learning-step {
@@ -124,7 +130,9 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 24px;
+  text-align: center;
 }
 
 .learning-step-marker {
@@ -140,28 +148,47 @@
   font-weight: 700;
 }
 
-.learning-step h3 {
+.learning-step-content {
+  width: 100%;
+}
+
+.learning-step-content h3 {
   margin: 0 0 8px;
   color: var(--text-primary);
   font-size: 1.15rem;
   letter-spacing: -0.02em;
 }
 
-.learning-step p {
-  margin: 0;
+.learning-step-content p {
+  max-width: 180px;
+  margin: 0 auto;
   color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.6;
 }
+
+/*
+  The orange segment stays inside the actual track.
+
+  It enters from the beginning of the path, travels through
+  the path, and stops at the end without overshooting it.
+*/
 
 @keyframes learning-progress {
   0% {
     transform: translateX(-100%);
   }
 
-  45%,
+  20% {
+    transform: translateX(0);
+  }
+
+  70% {
+    transform: translateX(315%);
+  }
+
   100% {
-    transform: translateX(220%);
+    transform: translateX(315%);
   }
 }
 
@@ -228,10 +255,19 @@
     grid-template-columns: 1fr;
     gap: 42px;
     margin-top: 48px;
-    padding-left: 0;
   }
 
-  .learning-path-line {
+  /*
+    On mobile the same learning path becomes vertical.
+
+    Marker centers are:
+      first marker  -> 15px from top
+      last marker   -> 15px from bottom
+
+    The track therefore connects the marker centers.
+  */
+
+  .learning-path-track {
     top: 15px;
     bottom: 15px;
     left: 14px;
@@ -241,25 +277,55 @@
   }
 
   .learning-path-progress {
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 45%;
-    animation-name: learning-progress-mobile;
+    height: 28%;
+    animation: learning-progress-mobile 5s ease-in-out infinite;
   }
 
   .learning-step {
     flex-direction: row;
     align-items: flex-start;
     gap: 18px;
+    text-align: left;
   }
 
-  .learning-step > div {
+  .learning-step-content {
     padding-top: 3px;
+  }
+
+  .learning-step-content p {
+    max-width: none;
+    margin: 0;
   }
 
   .home-closing {
     grid-template-columns: 1fr;
     gap: 28px;
     padding: 64px 0 20px;
+  }
+}
+
+/* --------------------------------------------------
+   MOBILE PATH ANIMATION
+-------------------------------------------------- */
+
+@keyframes learning-progress-mobile {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  20% {
+    transform: translateY(0);
+  }
+
+  70% {
+    transform: translateY(260%);
+  }
+
+  100% {
+    transform: translateY(260%);
   }
 }
 
@@ -274,16 +340,5 @@
 
   .primary-button {
     transition: none;
-  }
-}
-
-@keyframes learning-progress-mobile {
-  0% {
-    transform: translateY(-100%);
-  }
-
-  45%,
-  100% {
-    transform: translateY(220%);
   }
 }
