@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../context/useAuth";
 import ThemeToggle from "./ThemeToggle";
@@ -16,7 +16,11 @@ function Navbar({ theme, onToggleTheme }) {
   function handleLogout() {
     logout();
     closeMenu();
-    navigate("/login");
+    navigate("/login", { replace: true });
+  }
+
+  function navClassName({ isActive }) {
+    return `nav-link${isActive ? " is-active" : ""}`;
   }
 
   return (
@@ -27,32 +31,45 @@ function Navbar({ theme, onToggleTheme }) {
         </Link>
 
         <div className="nav-links">
-          <Link to="/" onClick={closeMenu}>
+          <NavLink to="/" end className={navClassName} onClick={closeMenu}>
             Home
-          </Link>
+          </NavLink>
 
-          <Link to="/courses" onClick={closeMenu}>
+          <NavLink to="/courses" className={navClassName} onClick={closeMenu}>
             Courses
-          </Link>
+          </NavLink>
 
           {user && (
             <>
-              <Link to="/my-courses" onClick={closeMenu}>
-                My Courses
-              </Link>
+              <NavLink
+                to="/dashboard"
+                className={navClassName}
+                onClick={closeMenu}
+              >
+                Dashboard
+              </NavLink>
 
-              <Link to="/learning-paths" onClick={closeMenu}>
-                Learning Paths
-              </Link>
+              <NavLink
+                to="/my-courses"
+                className={navClassName}
+                onClick={closeMenu}
+              >
+                My Courses
+              </NavLink>
+
+              <NavLink
+                to="/learning-paths"
+                className={navClassName}
+                onClick={closeMenu}
+              >
+                Track Your Goals
+              </NavLink>
             </>
           )}
         </div>
 
         <div className="nav-actions">
-          <ThemeToggle
-            theme={theme}
-            onToggle={onToggleTheme}
-          />
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
 
           <button type="button" aria-label="Notifications">
             🔔
@@ -60,13 +77,15 @@ function Navbar({ theme, onToggleTheme }) {
 
           {user ? (
             <>
-              <Link
+              <NavLink
                 to="/profile"
-                className="profile-link"
+                className={({ isActive }) =>
+                  `profile-link${isActive ? " is-active" : ""}`
+                }
                 onClick={closeMenu}
               >
                 Profile
-              </Link>
+              </NavLink>
 
               <button type="button" onClick={handleLogout}>
                 Logout
@@ -74,13 +93,17 @@ function Navbar({ theme, onToggleTheme }) {
             </>
           ) : (
             <>
-              <Link to="/login" onClick={closeMenu}>
+              <NavLink to="/login" className={navClassName} onClick={closeMenu}>
                 Login
-              </Link>
+              </NavLink>
 
-              <Link to="/register" onClick={closeMenu}>
+              <NavLink
+                to="/register"
+                className={navClassName}
+                onClick={closeMenu}
+              >
                 Register
-              </Link>
+              </NavLink>
             </>
           )}
 
@@ -89,7 +112,7 @@ function Navbar({ theme, onToggleTheme }) {
             className="menu-button"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
           >
             {isMenuOpen ? "✕" : "☰"}
           </button>
@@ -97,31 +120,47 @@ function Navbar({ theme, onToggleTheme }) {
 
         {isMenuOpen && (
           <div className="mobile-menu">
-            <Link to="/" onClick={closeMenu}>
+            <NavLink to="/" end className={navClassName} onClick={closeMenu}>
               Home
-            </Link>
+            </NavLink>
 
-            <Link to="/courses" onClick={closeMenu}>
+            <NavLink to="/courses" className={navClassName} onClick={closeMenu}>
               Courses
-            </Link>
-
-            {user && (
-              <>
-                <Link to="/my-courses" onClick={closeMenu}>
-                  My Courses
-                </Link>
-
-                <Link to="/learning-paths" onClick={closeMenu}>
-                  Learning Paths
-                </Link>
-              </>
-            )}
+            </NavLink>
 
             {user ? (
               <>
-                <Link to="/profile" onClick={closeMenu}>
+                <NavLink
+                  to="/dashboard"
+                  className={navClassName}
+                  onClick={closeMenu}
+                >
+                  Dashboard
+                </NavLink>
+
+                <NavLink
+                  to="/my-courses"
+                  className={navClassName}
+                  onClick={closeMenu}
+                >
+                  My Courses
+                </NavLink>
+
+                <NavLink
+                  to="/learning-paths"
+                  className={navClassName}
+                  onClick={closeMenu}
+                >
+                  Track Your Goals
+                </NavLink>
+
+                <NavLink
+                  to="/profile"
+                  className={navClassName}
+                  onClick={closeMenu}
+                >
                   Profile
-                </Link>
+                </NavLink>
 
                 <button type="button" onClick={handleLogout}>
                   Logout
@@ -129,13 +168,21 @@ function Navbar({ theme, onToggleTheme }) {
               </>
             ) : (
               <>
-                <Link to="/login" onClick={closeMenu}>
+                <NavLink
+                  to="/login"
+                  className={navClassName}
+                  onClick={closeMenu}
+                >
                   Login
-                </Link>
+                </NavLink>
 
-                <Link to="/register" onClick={closeMenu}>
+                <NavLink
+                  to="/register"
+                  className={navClassName}
+                  onClick={closeMenu}
+                >
                   Register
-                </Link>
+                </NavLink>
               </>
             )}
           </div>

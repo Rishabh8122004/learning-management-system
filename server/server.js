@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const connectDB = require("./config/db");
+const goalRoutes = require("./routes/goalRoutes");
 const authRoutes = require("./routes/authRoutes");
 const courseRoutes = require('./routes/courseRoutes');
 const enrollmentRoutes = require('./routes/enrollmentRoutes');
@@ -20,6 +21,7 @@ app.use('/api/learning-paths', learningPathRoutes);
 app.use('/api/enrollments', enrollmentRoutes);
 app.use('/api/courses', courseRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/goals", goalRoutes);
 
 app.get("/api/health", (req, res) => {
     res.status(200).json({

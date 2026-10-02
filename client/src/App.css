@@ -54,6 +54,19 @@
 .profile-link:hover {
   color: var(--text-primary);
 }
+.nav-links a.is-active,
+.profile-link.is-active,
+.mobile-menu a.is-active {
+  color: var(--primary);
+  font-weight: 650;
+}
+
+.nav-links a:focus-visible,
+.profile-link:focus-visible,
+.mobile-menu a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}
 
 .nav-actions {
   display: flex;
